@@ -15,7 +15,7 @@ void main() {
       ],
       child: PokemonApp(),
     )
-    );
+  );
 }
 
 class PokemonApp extends StatelessWidget {

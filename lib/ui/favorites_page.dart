@@ -11,7 +11,14 @@ class FavoritesPage extends StatelessWidget {
     var favoritesProvider = context.watch<FavoritesProvider>();
 
     if (favoritesProvider.favoritesList.isEmpty) {
-      return const Center(child: Text('No favorite pokemons yet'));
+      return const Center(
+        child: Card(
+          child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text('No favorite pokemons yet'),
+          )
+        ),
+      );
     }
 
     return ListView(
