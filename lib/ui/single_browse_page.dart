@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pokemon_app/models/pokemon.dart';
 import 'package:pokemon_app/providers/pokemon_provider.dart';
+import 'package:pokemon_app/providers/favorites_provider.dart';
 
 class SingleBrowsePage extends StatelessWidget {
   const SingleBrowsePage({super.key});
@@ -14,9 +15,17 @@ class SingleBrowsePage extends StatelessWidget {
     );
 
     var pokemonProvider = context.watch<PokemonProvider>();
+    var favoritesProvider = context.watch<FavoritesProvider>();
 
     if (pokemonProvider.isLoading) {
       return const Center(child: CircularProgressIndicator());
+    }
+
+    IconData favoriteIcon;
+    if (favoritesProvider.isFavorite(pokemonProvider.currentPokemon)) {
+      favoriteIcon = Icons.favorite;
+    } else {
+      favoriteIcon = Icons.favorite_border;
     }
 
     Pokemon currentPokemon = pokemonProvider.currentPokemon;
@@ -72,9 +81,9 @@ class SingleBrowsePage extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                print('Liked');
+                favoritesProvider.toggleFavorite(pokemonProvider.currentPokemon);
               }, 
-              icon: Icon(Icons.favorite),
+              icon: Icon(favoriteIcon),
               label: Text('Like'),
             ),
             ElevatedButton.icon(

@@ -4,11 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:pokemon_app/ui/single_browse_page.dart';
 import 'package:pokemon_app/ui/favorites_page.dart';
 import 'package:pokemon_app/providers/pokemon_provider.dart';
+import 'package:pokemon_app/providers/favorites_provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => PokemonProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PokemonProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider())
+      ],
       child: PokemonApp(),
     )
     );

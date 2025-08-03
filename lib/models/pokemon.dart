@@ -2,13 +2,11 @@ class Pokemon {
   final int id;
   final String name;
   final String imgURL;
-  bool isFavorite;
 
   Pokemon({
     required this.id, 
     required this.name, 
     required this.imgURL, 
-    this.isFavorite = false
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
