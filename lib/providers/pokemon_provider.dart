@@ -17,7 +17,7 @@ class PokemonProvider extends ChangeNotifier {
     notifyListeners();
     try {
       final result = await fetchPokemons(_nextURL!);
-      _pokemonList = result.pokemons;
+      _pokemonList += result.pokemons;
       _nextURL = result.nextURL;
     } catch (e) {
       print(e.toString());
@@ -31,9 +31,14 @@ class PokemonProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   void getNext() {
-    if (++_currentIndex >= _pokemonList.length) _currentIndex = 0;
+    if (++_currentIndex >= _pokemonList.length && _nextURL != null) {
+      loadPokemons();
+    } else if (_currentIndex >= _pokemonList.length) {
+      _currentIndex = 0;
+    }
     notifyListeners();
   }
+
   void getPrev() {
     if (--_currentIndex < 0) _currentIndex = _pokemonList.length - 1;
     notifyListeners();

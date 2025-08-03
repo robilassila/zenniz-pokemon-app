@@ -21,13 +21,6 @@ class SingleBrowsePage extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
-    IconData favoriteIcon;
-    if (favoritesProvider.isFavorite(pokemonProvider.currentPokemon)) {
-      favoriteIcon = Icons.favorite;
-    } else {
-      favoriteIcon = Icons.favorite_border;
-    }
-
     Pokemon currentPokemon = pokemonProvider.currentPokemon;
 
     return Column(
@@ -35,17 +28,31 @@ class SingleBrowsePage extends StatelessWidget {
       children: [
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: Image.network(
-            currentPokemon.imgURL,
+          child: GestureDetector(
             key: ValueKey(currentPokemon.id),
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return const SizedBox(
-                height: 400,
-                child: Center(child: CircularProgressIndicator()),
-              );
-              },
-            ),
+            onDoubleTap: () {
+              favoritesProvider.toggleFavorite(currentPokemon);
+            },
+            onHorizontalDragEnd: (details) {
+              if (details.primaryVelocity != null) {
+                if (details.primaryVelocity! < 0) {
+                  pokemonProvider.getNext();
+                } else if (details.primaryVelocity! > 0) {
+                  pokemonProvider.getPrev();
+                }
+              }
+            },
+            child: Image.network(
+              currentPokemon.imgURL,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const SizedBox(
+                  height: 400,
+                  child: Center(child: CircularProgressIndicator()),
+                );
+                },
+              ),
+          ),
           ),
 
         SizedBox(height: 20),
@@ -81,9 +88,9 @@ class SingleBrowsePage extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                favoritesProvider.toggleFavorite(pokemonProvider.currentPokemon);
+                favoritesProvider.toggleFavorite(currentPokemon);
               }, 
-              icon: Icon(favoriteIcon),
+              icon: Icon(favoritesProvider.isFavorite(currentPokemon) ? Icons.favorite : Icons.favorite_border),
               label: Text('Like'),
             ),
             ElevatedButton.icon(
