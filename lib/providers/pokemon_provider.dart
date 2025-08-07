@@ -3,10 +3,10 @@ import 'package:pokemon_app/data/pokemon_api.dart';
 import 'package:pokemon_app/models/pokemon.dart';
 
 class PokemonProvider extends ChangeNotifier {
-  List<Pokemon> _pokemonList = [];
+  final List<Pokemon> _pokemonList = [];
   int _currentIndex = 0;
   bool _isLoading = true;
-  String? _nextURL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
+  String? _nextURL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=50';
 
   PokemonProvider() {
     loadPokemons();
@@ -17,10 +17,12 @@ class PokemonProvider extends ChangeNotifier {
     notifyListeners();
     try {
       final result = await fetchPokemons(_nextURL!);
-      _pokemonList += result.pokemons;
+      final pokemonNames = pokemonList.map((p) => p.name).toSet();
+      final newPokemons = result.pokemons.where((p) => !pokemonNames.contains(p.name));
+      _pokemonList.addAll(newPokemons);
       _nextURL = result.nextURL;
     } catch (e) {
-      print(e.toString());
+      ();
     }
     _isLoading = false;
     notifyListeners();
