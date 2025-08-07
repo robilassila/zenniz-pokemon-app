@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_app/providers/scroll_pos_provider.dart';
 import 'package:pokemon_app/ui/pokemons_page.dart';
 import 'package:provider/provider.dart';
 import 'package:pokemon_app/ui/single_browse_page.dart';
@@ -7,15 +8,7 @@ import 'package:pokemon_app/providers/pokemon_provider.dart';
 import 'package:pokemon_app/providers/favorites_provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => PokemonProvider()),
-        ChangeNotifierProvider(create: (_) => FavoritesProvider())
-      ],
-      child: PokemonApp(),
-    )
-  );
+  runApp(PokemonApp());
 }
 
 class PokemonApp extends StatelessWidget {
@@ -23,12 +16,19 @@ class PokemonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pokémon App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amberAccent),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PokemonProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+        ChangeNotifierProvider(create: (_) => ScrollPosProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Pokémon App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amberAccent),
+        ),
+        home: PokemonHomePage(),
       ),
-      home: PokemonHomePage(),
     );
   }
 }

@@ -6,7 +6,7 @@ class PokemonProvider extends ChangeNotifier {
   List<Pokemon> _pokemonList = [];
   int _currentIndex = 0;
   bool _isLoading = true;
-  String? _nextURL = 'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0';
+  String? _nextURL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
 
   PokemonProvider() {
     loadPokemons();
@@ -29,9 +29,10 @@ class PokemonProvider extends ChangeNotifier {
   List<Pokemon> get pokemonList => _pokemonList;
   Pokemon get currentPokemon => _pokemonList[_currentIndex];
   bool get isLoading => _isLoading;
+  bool get hasNext => _nextURL != null;
 
   void getNext() {
-    if (++_currentIndex >= _pokemonList.length && _nextURL != null) {
+    if (++_currentIndex >= _pokemonList.length && hasNext) {
       loadPokemons();
     } else if (_currentIndex >= _pokemonList.length) {
       _currentIndex = 0;

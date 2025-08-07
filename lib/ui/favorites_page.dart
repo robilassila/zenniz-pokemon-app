@@ -14,7 +14,7 @@ class FavoritesPage extends StatelessWidget {
       return const Center(
         child: Card(
           child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               child: Text('No favorite pokemons yet'),
           )
         ),
@@ -33,9 +33,9 @@ class FavoritesPage extends StatelessWidget {
                 onPressed: () {
                   favoritesProvider.toggleFavorite(pokemon);
                 },
-                ),
+              ),
             ),
-          )
+          ),
       ],
     );
   }

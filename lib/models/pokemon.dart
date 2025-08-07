@@ -33,7 +33,7 @@ class PokemonApiResult {
 
   factory PokemonApiResult.fromJson(Map<String, dynamic> json) {
     return switch (json) {
-      {'next': String nextURL, 'results': List pokemons} => PokemonApiResult(
+      {'next': String? nextURL, 'results': List pokemons} => PokemonApiResult(
         pokemons: pokemons.map((pokemon) => Pokemon.fromJson(pokemon)).toList(),
         nextURL: nextURL,
         ),
