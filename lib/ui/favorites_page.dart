@@ -26,7 +26,10 @@ class FavoritesPage extends StatelessWidget {
         for (var pokemon in favoritesProvider.favoritesList)
           Card(
             child: ListTile(
-              leading: Image.network(pokemon.imgURL),
+              leading: Image.network(
+                pokemon.imgURL,
+                errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+              ),
               title: Text(pokemon.name),
               trailing: IconButton(
                 icon: Icon(Icons.favorite_rounded),
