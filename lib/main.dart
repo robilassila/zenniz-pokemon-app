@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/providers/scroll_pos_provider.dart';
+import 'package:pokemon_app/ui/pokemon_search_delegate.dart';
 import 'package:pokemon_app/ui/pokemons_page.dart';
 import 'package:provider/provider.dart';
 import 'package:pokemon_app/ui/single_browse_page.dart';
@@ -63,6 +64,12 @@ class _PokemonHomePageState extends State<PokemonHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.amberAccent,
         title: Text('Pokemon App'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () => showSearch(context: context, delegate: PokemonSearchDelegate()),
+            ),
+        ],
       ),
       body: page,
       bottomNavigationBar: NavigationBar(
