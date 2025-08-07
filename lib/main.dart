@@ -86,7 +86,7 @@ class _PokemonHomePageState extends State<PokemonHomePage> {
             selectedIndex = value;
           });
         },
-        ),
+      ),
     );
   }
 }

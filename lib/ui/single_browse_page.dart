@@ -26,34 +26,37 @@ class SingleBrowsePage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: GestureDetector(
-            key: ValueKey(currentPokemon.id),
-            onDoubleTap: () {
-              favoritesProvider.toggleFavorite(currentPokemon);
-            },
-            onHorizontalDragEnd: (details) {
-              if (details.primaryVelocity != null) {
-                if (details.primaryVelocity! < 0) {
-                  pokemonProvider.getNext();
-                } else if (details.primaryVelocity! > 0) {
-                  pokemonProvider.getPrev();
+        Expanded(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: GestureDetector(
+              key: ValueKey(currentPokemon.id),
+              onDoubleTap: () {
+                favoritesProvider.toggleFavorite(currentPokemon);
+              },
+              onHorizontalDragEnd: (details) {
+                if (details.primaryVelocity != null) {
+                  if (details.primaryVelocity! < 0) {
+                    pokemonProvider.getNext();
+                  } else if (details.primaryVelocity! > 0) {
+                    pokemonProvider.getPrev();
+                  }
                 }
-              }
-            },
-            child: Image.network(
-              currentPokemon.imgURL,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return const SizedBox(
-                  height: 400,
-                  child: Center(child: CircularProgressIndicator()),
-                );
+              },
+              child: Image.network(
+                currentPokemon.imgURL,
+                errorBuilder: (context, error, stackTrace) => Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.error_outline, size: 200), Text('Image not available')]), 
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const SizedBox(
+                    height: 400,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
                 },
               ),
+            ),
           ),
-          ),
+        ),
 
         SizedBox(height: 20),
 
@@ -67,12 +70,12 @@ class SingleBrowsePage extends StatelessWidget {
               child: Text(
                 currentPokemon.name,
                 style: style,
-                ),
+              ),
             ),
           ),
         ),
 
-        SizedBox(height: 20),
+        SizedBox(height: 40),
 
         Row(
           mainAxisSize: MainAxisSize.max,
@@ -101,7 +104,8 @@ class SingleBrowsePage extends StatelessWidget {
               icon: Icon(Icons.skip_next),
             ),
           ],
-        )
+        ),
+        SizedBox(height: 20),
       ],
     );
   }
