@@ -1,16 +1,9 @@
 # pokemon_app
 
-A new Flutter project.
+A simple Pokemon app designed for mobile devices made with Flutter. The app fetches pokemon data from [pokeapi.co](https://pokeapi.co)
 
-## Getting Started
+# Screenshots
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="/screenshots/home_app.jpg" width="50%"/>
+<img src="/screenshots/favorites_app.jpg" width="50%"/>
+<img src="/screenshots/search_app.jpg" width=50%/>
