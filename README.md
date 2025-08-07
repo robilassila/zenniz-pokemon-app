@@ -4,6 +4,6 @@ A simple Pokemon app designed for mobile devices made with Flutter. The app fetc
 
 # Screenshots
 
-<img src="/screenshots/home_app.jpg" width="50%"/>
-<img src="/screenshots/favorites_app.jpg" width="50%"/>
-<img src="/screenshots/search_app.jpg" width=50%/>
+<img src="/screenshots/home_app.jpg" width="30%"/>
+<img src="/screenshots/favorites_app.jpg" width="30%"/>
+<img src="/screenshots/search_app.jpg" width=30%/>
